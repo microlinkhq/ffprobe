@@ -23,19 +23,19 @@
     "url": "https://github.com/microlinkhq/ffprobe/issues"
   },
   "keywords": [
-    "ffprobe",
+    "audio",
+    "binaries",
     "binary",
+    "duration",
     "ffmpeg",
-    "stream",
+    "ffprobe",
+    "library",
+    "linux",
+    "mac",
     "media",
     "static",
-    "library",
-    "binaries",
-    "mac",
-    "linux",
-    "windows",
-    "audio",
-    "duration"
+    "stream",
+    "windows"
   ],
   "dependencies": {
     "got": "~11.8.3",
