@@ -1,10 +1,12 @@
 'use strict'
 
-const { mkdir, writeFile } = require('fs').promises
+const { existsSync, mkdirSync } = require('fs')
+const { writeFile } = require('fs').promises
 const { promisify } = require('util')
 const lzma = require('lzma-native')
 const tar = require('tar-stream')
 const stream = require('stream')
+const path = require('path')
 const got = require('got')
 const os = require('os')
 
@@ -13,7 +15,7 @@ const arch = process.env.FFPROBE_ARCH || os.arch()
 
 const URL = {
   // mac m1
-  'darwin+x64': 'https://cdn.microlink.io/ffprobe-4-4-1.tar.xz',
+  'darwin+arm64': 'https://cdn.microlink.io/ffprobe-4-4-1.tar.xz',
   // linux production
   'linux+x64':
     'https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz'
@@ -45,7 +47,8 @@ const main = async () => {
     })
   })
 
-  const requestStream = got.stream(URL[`${platform}+${arch}`])
+  const hash = `${platform}+${arch}`
+  const requestStream = got.stream(URL[hash])
 
   try {
     await pipeline(requestStream, lzma.Decompressor(), extract)
@@ -53,8 +56,10 @@ const main = async () => {
     if (err.message !== 'ABORTED_BY_USER') throw err
   }
 
-  await mkdir('bin')
-  await writeFile('bin/ffprobe', ffProbeData, { mode: 493 })
+  const binPath = path.resolve(__dirname, '../bin')
+
+  if (!existsSync(binPath)) mkdirSync(binPath)
+  await writeFile(path.join(binPath, 'ffprobe'), ffProbeData, { mode: 493 })
 }
 
 main()

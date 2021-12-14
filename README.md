@@ -23,9 +23,7 @@ $ npm install @microlink/ffprobe --save
 const { path: ffprobePath } = require('@microlink/ffprobe')
 const execa = require('execa')
 
-const version = await execa(ffprobePath, ['--version'])
-
-console.log(version)
+execa(ffprobePath, ['--version']).then(({ stdout }) => console.log(stdout))
 ```
 
 ## License
