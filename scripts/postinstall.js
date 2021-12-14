@@ -1,6 +1,7 @@
 'use strict'
 
-const { mkdir, writeFile } = require('fs').promises
+const { existsSync, mkdirSync } = require('fs')
+const { writeFile } = require('fs').promises
 const { promisify } = require('util')
 const lzma = require('lzma-native')
 const tar = require('tar-stream')
@@ -53,7 +54,7 @@ const main = async () => {
     if (err.message !== 'ABORTED_BY_USER') throw err
   }
 
-  await mkdir('bin')
+  if (!existsSync('bin')) mkdirSync('bin')
   await writeFile('bin/ffprobe', ffProbeData, { mode: 493 })
 }
 
