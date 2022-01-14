@@ -15,7 +15,7 @@ const arch = process.env.FFPROBE_ARCH || os.arch()
 
 const URL = {
   // mac m1
-  'darwin+arm64': 'https://cdn.microlink.io/ffprobe-4-4-1.tar.xz',
+  'darwin+arm64': 'https://cdn.microlink.io/ffprobe.tar.xz',
   // linux production
   'linux+x64':
     'https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz'
