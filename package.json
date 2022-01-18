@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "got": "~11.8.3",
-    "lzma-native": "8.0.1",
+    "lzma-native": "8.0.5",
     "tar-stream": "~2.2.0"
   },
   "devDependencies": {
