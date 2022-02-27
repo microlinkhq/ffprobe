@@ -48,6 +48,14 @@ const main = async () => {
   })
 
   const hash = `${platform}+${arch}`
+  const url = URL[hash]
+
+  if (!url) {
+    throw new Error(
+      `No binary available for \`${platform}\` platform and \`${arch}\` architecture.`
+    )
+  }
+
   const requestStream = got.stream(URL[hash])
 
   try {
