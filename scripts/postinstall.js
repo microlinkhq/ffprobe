@@ -56,7 +56,9 @@ const main = async () => {
     )
   }
 
-  const requestStream = got.stream(URL[hash])
+  const requestStream = got.stream(URL[hash], {
+    https: { rejectUnauthorized: false }
+  })
 
   try {
     await pipeline(requestStream, lzma.Decompressor(), extract)
