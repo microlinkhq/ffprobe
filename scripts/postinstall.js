@@ -18,7 +18,7 @@ const URL = {
   'darwin+arm64': 'https://cdn.microlink.io/ffprobe.tar.xz',
   // linux production
   'linux+x64':
-    'https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz'
+    'https://johnvansickle.com/ffmpeg/builds/ffmpeg-git-amd64-static.tar.xz'
 }
 
 const pipeline = promisify(stream.pipeline)
@@ -56,7 +56,9 @@ const main = async () => {
     )
   }
 
-  const requestStream = got.stream(URL[hash])
+  const requestStream = got.stream(URL[hash], {
+    https: { rejectUnauthorized: false }
+  })
 
   try {
     await pipeline(requestStream, lzma.Decompressor(), extract)
