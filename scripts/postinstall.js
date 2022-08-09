@@ -67,7 +67,7 @@ const main = async () => {
   const binPath = path.resolve(__dirname, '../bin')
 
   if (!existsSync(binPath)) mkdirSync(binPath)
-  await writeFile(path.join(binPath, 'ffprobe'), ffProbeData, { mode: 493 })
+  await writeFile(path.join(binPath, 'ffprobe'), ffProbeData, { mode: 0o755 })
 }
 
 main()
