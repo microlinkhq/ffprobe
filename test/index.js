@@ -6,8 +6,9 @@ const test = require('ava')
 const { path: ffprobePath } = require('..')
 
 test('expose ffprobe path', async t => {
-  const { exitCode } = await execa(ffprobePath, ['-version'])
-  t.is(exitCode, 0)
+  const result = await execa(ffprobePath, ['-version'])
+  console.log(result)
+  t.is(result.exitCode, 0)
 })
 
 test('run arbitrary command', async t => {
@@ -21,6 +22,8 @@ test('run arbitrary command', async t => {
     '-show_error',
     'https://microlink.io/favicon.ico'
   ])
+
+  console.log(result)
 
   t.is(result.exitCode, 0)
   t.true(!!result.stdout)
