@@ -1,7 +1,7 @@
 'use strict'
 
 const { existsSync, mkdirSync } = require('fs')
-const { writeFile } = require('fs').promises
+const { writeFile } = require('fs/promises')
 const { promisify } = require('util')
 const lzma = require('lzma-native')
 const tar = require('tar-stream')
