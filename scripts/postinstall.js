@@ -18,7 +18,7 @@ const URL = {
   'darwin+arm64': 'https://cdn.microlink.io/ffprobe.tar.xz',
   // linux production
   'linux+x64':
-    'https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz'
+    'https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.4.1-amd64-static.tar.xz'
 }
 
 const pipeline = promisify(stream.pipeline)
