@@ -72,6 +72,4 @@ const main = async () => {
   await writeFile(path.join(binPath, 'ffprobe'), ffProbeData, { mode: 0o755 })
 }
 
-main()
-  .catch(err => console.error(err) && process.exit(1))
-  .then(process.exit)
+main().catch(error => console.error(error) || process.exit(1))
