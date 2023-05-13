@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="https://cdn.microlink.io/logo/banner.png">
+  <img src="https://github.com/microlinkhq/cdn/raw/master/dist/logo/banner.png#gh-light-mode-only" alt="microlink logo">
+  <img src="https://github.com/microlinkhq/cdn/raw/master/dist/logo/banner-dark.png#gh-dark-mode-only" alt="microlink logo">
   <br>
   <br>
 </div>
-
 
 ![Last version](https://img.shields.io/github/tag/microlinkhq/ffprobe.svg?style=flat-square)
 [![Coverage Status](https://img.shields.io/coveralls/microlinkhq/ffprobe.svg?style=flat-square)](https://coveralls.io/github/microlinkhq/ffprobe)
