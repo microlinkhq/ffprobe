@@ -12,16 +12,16 @@ const os = require('os')
 
 const platform = process.env.FFPROBE_PLATFORM ?? process.platform
 const arch = process.env.FFPROBE_ARCH ?? os.arch()
-const channel = process.env.FFPROBE_CHANNEL ?? 'git'
+const channel = process.env.FFPROBE_CHANNEL ?? 'stable'
 
 const URL = {
   // mac m1
   'darwin+arm64': 'https://cdn.microlink.io/ffprobe.tar.xz',
   // linux production
   'linux+x64':
-    channel === 'git'
-      ? 'https://johnvansickle.com/ffmpeg/builds/ffmpeg-git-amd64-static.tar.xz'
-      : 'https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz'
+    channel === 'stable'
+      ? 'https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz'
+      : 'https://johnvansickle.com/ffmpeg/builds/ffmpeg-git-amd64-static.tar.xz'
 }
 
 const pipeline = promisify(stream.pipeline)
