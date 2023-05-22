@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.1.0 (2023-05-22)
+
+
+### Features
+
+* add FFPROBE_CHANNEL ([#21](https://github.com/microlinkhq/ffprobe/issues/21)) ([479da95](https://github.com/microlinkhq/ffprobe/commit/479da95230c8088c85da8e8c4da8d6598bfe340e))
+
 ### 1.0.11 (2023-05-22)
 
 ### 1.0.10 (2023-05-13)
