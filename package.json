@@ -2,7 +2,7 @@
   "name": "@microlink/ffprobe",
   "description": "Static binaries for ffprobe",
   "homepage": "https://nicedoc.io/microlinkhq/ffprobe",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "index.js",
   "author": {
     "email": "hello@microlink.io",

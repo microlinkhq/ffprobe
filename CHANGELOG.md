@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.1 (2023-05-22)
+
+
+### Bug Fixes
+
+* remove unnecessary log ([4ccbf7e](https://github.com/microlinkhq/ffprobe/commit/4ccbf7e039f49ba6f41a8d068a7da827ae731f66))
+
 ## 1.1.0 (2023-05-22)
 
 
