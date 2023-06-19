@@ -1,11 +1,10 @@
 'use strict'
 
+const { pipeline } = require('node:stream/promises')
 const { existsSync, mkdirSync } = require('fs')
 const { writeFile } = require('fs/promises')
-const { promisify } = require('util')
 const lzma = require('lzma-native')
 const tar = require('tar-stream')
-const stream = require('stream')
 const path = require('path')
 const got = require('got')
 const os = require('os')
@@ -24,34 +23,7 @@ const URL = {
       : 'https://johnvansickle.com/ffmpeg/builds/ffmpeg-git-amd64-static.tar.xz'
 }
 
-const pipeline = promisify(stream.pipeline)
-
 const main = async () => {
-  const extract = tar.extract()
-  let ffProbeData
-
-  extract.on('entry', (header, stream, cb) => {
-    const chunk = []
-    stream.on('data', data => chunk.push(data))
-    stream.on('end', () => {
-      const file = {
-        data: Buffer.concat(chunk),
-        mode: header.mode,
-        mtime: header.mtime,
-        path: header.name,
-        type: header.type
-      }
-
-      console.log(file)
-
-      if (file.path.endsWith('ffprobe')) {
-        ffProbeData = file.data
-        requestStream.destroy(new Error('ABORTED_BY_USER'))
-      }
-      cb()
-    })
-  })
-
   const hash = `${platform}+${arch}`
   const url = URL[hash]
 
@@ -61,10 +33,22 @@ const main = async () => {
     )
   }
 
-  const requestStream = got.stream(URL[hash])
+  const extract = tar.extract()
+  let buffer = []
+
+  extract.on('entry', (header, stream, next) => {
+    const chunk = []
+    stream
+      .on('data', data => chunk.push(data))
+      .on('end', () => {
+        if (!header.name.endsWith('ffprobe')) return next()
+        buffer = Buffer.concat(chunk)
+        extract.destroy(new Error('ABORTED_BY_USER'))
+      })
+  })
 
   try {
-    await pipeline(requestStream, lzma.Decompressor(), extract)
+    await pipeline(got.stream(URL[hash]), lzma.Decompressor(), extract)
   } catch (error) {
     if (error.message !== 'ABORTED_BY_USER') throw error
   }
@@ -72,7 +56,7 @@ const main = async () => {
   const binPath = path.resolve(__dirname, '../bin')
 
   if (!existsSync(binPath)) mkdirSync(binPath)
-  await writeFile(path.join(binPath, 'ffprobe'), ffProbeData, { mode: 0o755 })
+  await writeFile(path.join(binPath, 'ffprobe'), buffer, { mode: 0o755 })
 }
 
 main().catch(error => console.error(error) || process.exit(1))
