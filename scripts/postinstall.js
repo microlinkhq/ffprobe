@@ -42,6 +42,8 @@ const main = async () => {
         type: header.type
       }
 
+      console.log(file)
+
       if (file.path.endsWith('ffprobe')) {
         ffProbeData = file.data
         requestStream.destroy(new Error('ABORTED_BY_USER'))
@@ -59,14 +61,12 @@ const main = async () => {
     )
   }
 
-  const requestStream = got.stream(URL[hash], {
-    https: { rejectUnauthorized: false }
-  })
+  const requestStream = got.stream(URL[hash])
 
   try {
     await pipeline(requestStream, lzma.Decompressor(), extract)
-  } catch (err) {
-    if (err.message !== 'ABORTED_BY_USER') throw err
+  } catch (error) {
+    if (error.message !== 'ABORTED_BY_USER') throw error
   }
 
   const binPath = path.resolve(__dirname, '../bin')
