@@ -21,9 +21,10 @@ $ npm install @microlink/ffprobe --save
 
 ```js
 const { path: ffprobePath } = require('@microlink/ffprobe')
-const execa = require('execa')
+const $ = require('tinyspawn')
 
-execa(ffprobePath, ['--version']).then(({ stdout }) => console.log(stdout))
+const { stdout } = await $(ffprobePath, ['--version'])
+console.log(stdout)
 ```
 
 ## License
